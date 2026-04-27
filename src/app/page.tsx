@@ -450,7 +450,10 @@ export default function Dashboard() {
       {/* Header */}
       <header className={styles.header}>
         <div className={styles.headerLeft}>
-          <h1 className={styles.logo}>AGENCY</h1>
+          <h1 className={styles.logo}>
+            <img src="/ALESSANDRA ENSLEY (3).png" alt="Alessandra Ensley" />
+            <span className={styles.logoText}>Alessandra Ensley — Creative Studio</span>
+          </h1>
           <div className={styles.connectionStatus}>
             <DotIcon color={connected ? "#4ADE80" : "#EF4444"} />
             <span>{connected ? "Connected" : "Disconnected"}</span>

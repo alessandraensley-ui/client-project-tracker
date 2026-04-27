@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Client Project Tracker | Agency Dashboard",
+  title: "Client Project Tracker | Alessandra Ensley — Creative Studio",
   description: "Real-time collaborative client project management for agencies",
 };
 

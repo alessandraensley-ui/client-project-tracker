@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-4) var(--space-6);
-  background: var(--surface);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -24,11 +24,25 @@
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
   font-family: var(--font-heading);
   font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  color: var(--primary);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.logo img {
+  height: 60px;
+  width: auto;
+}
+
+.logoText {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
 .connectionStatus {
@@ -95,7 +109,7 @@
 
 .roleBtn.active {
   background: var(--primary);
-  color: var(--bg);
+  color: #FFFFFF;
 }
 
 /* Main Layout */
@@ -313,12 +327,12 @@
 }
 
 .taskItem.completed .checkbox {
-  background: var(--success);
-  border-color: var(--success);
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
 .checkbox svg {
-  color: var(--bg);
+  color: #FFFFFF;
 }
 
 .taskName {
@@ -377,13 +391,13 @@
 }
 
 .noteRoleBtn.leadActive {
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(160, 82, 45, 0.12);
   border-color: var(--lead);
   color: var(--lead);
 }
 
 .noteRoleBtn.designerActive {
-  background: rgba(236, 72, 153, 0.15);
+  background: rgba(196, 98, 45, 0.12);
   border-color: var(--designer);
   color: var(--designer);
 }
