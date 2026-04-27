@@ -238,7 +238,7 @@ export default function Dashboard() {
         (payload) => {
           if (payload.eventType === "UPDATE") {
             setBrandTasks((prev) =>
-              prev.map((t) => (t.id === payload.new.id ? payload.new : t)),
+              prev.map((t) => (t.id === payload.new.id ? payload.new as Task : t)),
             );
           }
         },
@@ -249,7 +249,7 @@ export default function Dashboard() {
         (payload) => {
           if (payload.eventType === "UPDATE") {
             setWebsiteTasks((prev) =>
-              prev.map((t) => (t.id === payload.new.id ? payload.new : t)),
+              prev.map((t) => (t.id === payload.new.id ? payload.new as Task : t)),
             );
           }
         },
@@ -259,7 +259,7 @@ export default function Dashboard() {
         { event: "*", schema: "public", table: "notes" },
         (payload) => {
           if (payload.eventType === "INSERT") {
-            setNotes((prev) => [payload.new, ...prev]);
+            setNotes((prev) => [payload.new as Note, ...prev]);
           }
         },
       )
