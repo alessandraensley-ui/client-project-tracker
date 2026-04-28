@@ -2,19 +2,19 @@
 
 :root {
   /* Colors */
-  --bg: #FFFFFF;
-  --surface: #FFFFFF;
-  --surface-elevated: #FFFFFF;
-  --border: #F0EBEB;
-  --primary: #E87D8A;
-  --primary-hover: #D66B7A;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --border: #f0ebeb;
+  --primary: #e87d8a;
+  --primary-hover: #d66b7a;
   --text-primary: #1a1a1a;
   --text-secondary: #5a5a5a;
   --text-muted: #8a8a8a;
-  --success: #E87D8A;
+  --success: #e87d8a;
   --warning: #fbbf24;
-  --lead: #E87D8A;
-  --designer: #F2A7B0;
+  --lead: #e87d8a;
+  --designer: #f2a7b0;
 
   /* Typography */
   --font-heading: "Playfair Display", serif;

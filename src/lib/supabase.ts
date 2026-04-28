@@ -46,6 +46,47 @@ export interface Presence {
   last_seen: string;
 }
 
+// Kanban Board Types
+export interface BrandBoardColumn {
+  id: string;
+  client_id: string;
+  column_name: string;
+  position: number;
+  created_at: string;
+}
+
+export interface BrandBoardCard {
+  id: string;
+  column_id: string;
+  title: string;
+  description: string;
+  assignee: "Lead" | "Designer" | null;
+  due_date: string | null;
+  position: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface WebsiteBoardColumn {
+  id: string;
+  client_id: string;
+  column_name: string;
+  position: number;
+  created_at: string;
+}
+
+export interface WebsiteBoardCard {
+  id: string;
+  column_id: string;
+  title: string;
+  description: string;
+  assignee: "Lead" | "Designer" | null;
+  due_date: string | null;
+  position: number;
+  created_at: string;
+  updated_at: string;
+}
+
 // Helper to get or generate user ID
 export function getUserId(): string {
   if (typeof window === "undefined") return "server";

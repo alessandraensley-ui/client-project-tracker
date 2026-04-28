@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-4) var(--space-6);
-  background: #FFFFFF;
+  background: #ffffff;
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -109,7 +109,7 @@
 
 .roleBtn.active {
   background: var(--primary);
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 /* Main Layout */
@@ -332,7 +332,7 @@
 }
 
 .checkbox svg {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .taskName {
@@ -541,4 +541,247 @@
   .clientGrid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Tab Navigation */
+.tabNav {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.tabBtn {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.tabBtn:hover {
+  color: var(--text-primary);
+  background: var(--surface);
+}
+
+.tabBtn.tabActive {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+/* Kanban Board */
+.kanbanContainer {
+  width: 100%;
+  padding: var(--space-4);
+}
+
+.kanbanBoard {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  padding-bottom: var(--space-4);
+}
+
+.kanbanColumn {
+  flex: 0 0 280px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 200px);
+}
+
+.kanbanColumnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.kanbanColumnHeader h3 {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.kanbanCardCount {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--bg);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.kanbanCards {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.kanbanCard {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  cursor: grab;
+  transition: all var(--transition);
+}
+
+.kanbanCard:hover {
+  box-shadow: var(--shadow);
+}
+
+.kanbanCard:active {
+  cursor: grabbing;
+}
+
+.kanbanCardContent h4 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.kanbanCardContent p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.kanbanCardMeta {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.kanbanDueDate {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.kanbanCardActions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.kanbanEditBtn,
+.kanbanDeleteBtn {
+  font-size: 11px;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.kanbanEditBtn {
+  color: var(--primary);
+  background: transparent;
+  border: 1px solid var(--primary);
+}
+
+.kanbanEditBtn:hover {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+.kanbanDeleteBtn {
+  color: #EF4444;
+  background: transparent;
+  border: 1px solid #EF4444;
+}
+
+.kanbanDeleteBtn:hover {
+  background: #EF4444;
+  color: #FFFFFF;
+}
+
+.kanbanCardEdit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.kanbanCardEdit input,
+.kanbanCardEdit textarea {
+  width: 100%;
+  padding: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.kanbanCardEdit textarea {
+  resize: vertical;
+}
+
+.kanbanCardFields {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.kanbanCardFields select,
+.kanbanCardFields input[type="date"] {
+  flex: 1;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.kanbanAddBtn {
+  width: 100%;
+  padding: var(--space-3);
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-top: 1px solid var(--border);
+  transition: all var(--transition);
+}
+
+.kanbanAddBtn:hover {
+  color: var(--primary);
+  background: var(--bg);
+}
+
+.kanbanAddForm {
+  padding: var(--space-3);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.kanbanAddForm input,
+.kanbanAddForm textarea {
+  width: 100%;
+  padding: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.kanbanAddForm textarea {
+  resize: vertical;
 }

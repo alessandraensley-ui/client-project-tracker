@@ -12,6 +12,7 @@ import {
   getUserName,
   setUserRole,
 } from "@/lib/supabase";
+import KanbanBoard from "@/components/KanbanBoard";
 import styles from "./page.module.css";
 
 // Icons as simple SVG components
@@ -161,6 +162,9 @@ export default function Dashboard() {
   const [noteRole, setNoteRole] = useState<"Lead" | "Designer">("Lead");
   const [editingField, setEditingField] = useState<string | null>(null);
   const [connected, setConnected] = useState(false);
+  const [activeTab, setActiveTab] = useState<"overview" | "brand" | "website">(
+    "overview",
+  );
 
   const userId = getUserId();
   const userRole = getUserRole();
@@ -238,7 +242,9 @@ export default function Dashboard() {
         (payload) => {
           if (payload.eventType === "UPDATE") {
             setBrandTasks((prev) =>
-              prev.map((t) => (t.id === payload.new.id ? payload.new as Task : t)),
+              prev.map((t) =>
+                t.id === payload.new.id ? (payload.new as Task) : t,
+              ),
             );
           }
         },
@@ -249,7 +255,9 @@ export default function Dashboard() {
         (payload) => {
           if (payload.eventType === "UPDATE") {
             setWebsiteTasks((prev) =>
-              prev.map((t) => (t.id === payload.new.id ? payload.new as Task : t)),
+              prev.map((t) =>
+                t.id === payload.new.id ? (payload.new as Task) : t,
+              ),
             );
           }
         },
@@ -452,7 +460,9 @@ export default function Dashboard() {
         <div className={styles.headerLeft}>
           <h1 className={styles.logo}>
             <img src="/ALESSANDRA ENSLEY (3).png" alt="Alessandra Ensley" />
-            <span className={styles.logoText}>Alessandra Ensley — Creative Studio</span>
+            <span className={styles.logoText}>
+              Alessandra Ensley — Creative Studio
+            </span>
           </h1>
           <div className={styles.connectionStatus}>
             <DotIcon color={connected ? "#4ADE80" : "#EF4444"} />
@@ -491,8 +501,32 @@ export default function Dashboard() {
         </div>
       </header>
 
+      {/* Tab Navigation */}
+      <nav className={styles.tabNav}>
+        <button
+          className={`${styles.tabBtn} ${activeTab === "overview" ? styles.tabActive : ""}`}
+          onClick={() => setActiveTab("overview")}
+        >
+          Overview
+        </button>
+        <button
+          className={`${styles.tabBtn} ${activeTab === "brand" ? styles.tabActive : ""}`}
+          onClick={() => setActiveTab("brand")}
+        >
+          Brand Board
+        </button>
+        <button
+          className={`${styles.tabBtn} ${activeTab === "website" ? styles.tabActive : ""}`}
+          onClick={() => setActiveTab("website")}
+        >
+          Website Board
+        </button>
+      </nav>
+
       {/* Main Content */}
       <main className={styles.main}>
+        {activeTab === "overview" && (
+          <>
         {/* Left Column */}
         <div className={styles.leftColumn}>
           {/* Client Info */}
@@ -881,6 +915,20 @@ export default function Dashboard() {
             )}
           </div>
         </div>
+          </>
+        )}
+
+        {activeTab === "brand" && client && (
+          <div className={styles.kanbanContainer}>
+            <KanbanBoard clientId={client.id} boardType="brand" />
+          </div>
+        )}
+
+        {activeTab === "website" && client && (
+          <div className={styles.kanbanContainer}>
+            <KanbanBoard clientId={client.id} boardType="website" />
+          </div>
+        )}
       </main>
     </div>
   );

@@ -132,6 +132,88 @@ ALTER PUBLICATION supabase_realtime ADD TABLE website_tasks;
 ALTER PUBLICATION supabase_realtime ADD TABLE notes;
 ALTER PUBLICATION supabase_realtime ADD TABLE presence;
 
+-- Kanban Board Tables
+-- Brand Board Columns (To Do, In Progress, Review, Done)
+CREATE TABLE brand_board_columns (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  client_id UUID REFERENCES clients(id) ON DELETE CASCADE,
+  column_name TEXT NOT NULL,
+  position INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Brand Board Cards
+CREATE TABLE brand_board_cards (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  column_id UUID REFERENCES brand_board_columns(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  description TEXT DEFAULT '',
+  assignee TEXT CHECK (assignee IN ('Lead', 'Designer')),
+  due_date DATE,
+  position INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Website Board Columns (Project Start, Site Assets, Onboarding, Design & Development, Testing & Launch, Offboarding)
+CREATE TABLE website_board_columns (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  client_id UUID REFERENCES clients(id) ON DELETE CASCADE,
+  column_name TEXT NOT NULL,
+  position INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Website Board Cards
+CREATE TABLE website_board_cards (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  column_id UUID REFERENCES website_board_columns(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  description TEXT DEFAULT '',
+  assignee TEXT CHECK (assignee IN ('Lead', 'Designer')),
+  due_date DATE,
+  position INT NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable Realtime for Kanban tables
+ALTER PUBLICATION supabase_realtime ADD TABLE brand_board_columns;
+ALTER PUBLICATION supabase_realtime ADD TABLE brand_board_cards;
+ALTER PUBLICATION supabase_realtime ADD TABLE website_board_columns;
+ALTER PUBLICATION supabase_realtime ADD TABLE website_board_cards;
+
+-- Create default columns for existing clients
+DO $$
+DECLARE
+  client_uuid UUID;
+  brand_col_uuid UUID;
+  website_col_uuid UUID;
+BEGIN
+  -- Get existing client
+  SELECT id INTO client_uuid FROM clients LIMIT 1;
+  
+  IF client_uuid IS NOT NULL THEN
+    -- Brand Board Columns
+    INSERT INTO brand_board_columns (client_id, column_name, position) VALUES
+      (client_uuid, 'To Do', 0),
+      (client_uuid, 'In Progress', 1),
+      (client_uuid, 'Review', 2),
+      (client_uuid, 'Done', 3)
+    RETURNING id INTO brand_col_uuid;
+    
+    -- Website Board Columns
+    INSERT INTO website_board_columns (client_id, column_name, position) VALUES
+      (client_uuid, 'Project Start', 0),
+      (client_uuid, 'Site Assets', 1),
+      (client_uuid, 'Onboarding', 2),
+      (client_uuid, 'Design & Development', 3),
+      (client_uuid, 'Testing & Launch', 4),
+      (client_uuid, 'Offboarding', 5)
+    RETURNING id INTO website_col_uuid;
+  END IF;
+END $$;
+
 -- Row Level Security (RLS) - Allow all operations for demo purposes
 -- In production, you would want to configure proper auth policies
 ALTER TABLE clients ENABLE ROW LEVEL SECURITY;
@@ -139,6 +221,10 @@ ALTER TABLE brand_tasks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE website_tasks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE notes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE presence ENABLE ROW LEVEL SECURITY;
+ALTER TABLE brand_board_columns ENABLE ROW LEVEL SECURITY;
+ALTER TABLE brand_board_cards ENABLE ROW LEVEL SECURITY;
+ALTER TABLE website_board_columns ENABLE ROW LEVEL SECURITY;
+ALTER TABLE website_board_cards ENABLE ROW LEVEL SECURITY;
 
 -- Allow all access (for demo - restrict in production)
 CREATE POLICY "Allow all for clients" ON clients FOR ALL USING (true) WITH CHECK (true);
@@ -146,3 +232,7 @@ CREATE POLICY "Allow all for brand_tasks" ON brand_tasks FOR ALL USING (true) WI
 CREATE POLICY "Allow all for website_tasks" ON website_tasks FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all for notes" ON notes FOR ALL USING (true) WITH CHECK (true);
 CREATE POLICY "Allow all for presence" ON presence FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Allow all for brand_board_columns" ON brand_board_columns FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Allow all for brand_board_cards" ON brand_board_cards FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Allow all for website_board_columns" ON website_board_columns FOR ALL USING (true) WITH CHECK (true);
+CREATE POLICY "Allow all for website_board_cards" ON website_board_cards FOR ALL USING (true) WITH CHECK (true);
