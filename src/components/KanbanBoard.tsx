@@ -9,7 +9,7 @@ import {
   WebsiteBoardCard,
   getUserRole,
 } from "@/lib/supabase";
-import styles from "./page.module.css";
+import styles from "../app/page.module.css";
 
 type BoardType = "brand" | "website";
 
