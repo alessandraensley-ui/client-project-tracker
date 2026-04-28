@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-4) var(--space-6);
-  background: var(--bg);
+  background: #FFFFFF;
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -391,13 +391,13 @@
 }
 
 .noteRoleBtn.leadActive {
-  background: rgba(160, 82, 45, 0.12);
+  background: rgba(232, 125, 138, 0.12);
   border-color: var(--lead);
   color: var(--lead);
 }
 
 .noteRoleBtn.designerActive {
-  background: rgba(196, 98, 45, 0.12);
+  background: rgba(242, 167, 176, 0.15);
   border-color: var(--designer);
   color: var(--designer);
 }
